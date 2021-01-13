@@ -13,7 +13,7 @@ jobs:
           submodules: true
       - name: Install dependencies
         run: |
-          pip install requirements.txt
+          pip install -r requirements.txt
       - name: Unitary tests
         run: |
           pytest
