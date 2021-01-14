@@ -19,5 +19,4 @@ jobs:
         run: |
           payload="{ \"commit\": \"${GITHUB_SHA}\", \"ref\": \"refs/heads/${GITHUB_REF}\", \"default_branch\": \"master\" }"
           echo $payload
-          QUAY_WEBHOOK_URL="$(echo "${QUAY_WEBHOOK_URL}" | sed "s_https://:_https://\$token:_")"
           curl -H 'Content-Type: application/json' --data "${payload}" "${QUAY_WEBHOOK_URL}"
