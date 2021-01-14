@@ -1,0 +1,23 @@
+name: docker build for quay.io
+
+on:
+  push:
+    paths:
+      - 'Dockerfile'
+      - 'requirements.txt'
+
+# https://github.com/lkiesow/automated-quay.io-deployment/
+jobs:
+  build:
+    name: Webhook
+    runs-on: ubuntu-latest
+    container: byrnedo/alpine-curl
+    steps:
+      - name: Webhook on quay.io
+        run: |
+          # https://docs.quay.io/guides/custom-trigger.html
+          payload="{ \"commit\": \"${GITHUB_SHA}\", \"ref\": \"refs/heads/${GITHUB_REF}\", \"default_branch\": \"master\" }"
+          echo $payload
+          # Fix webhook URL if necessary
+          QUAY_WEBHOOK_URL="$(echo "${QUAY_WEBHOOK_URL}" | sed "s_https://:_https://\$token:_")"
+          curl -H 'Content-Type: application/json' --data "${payload}" "${QUAY_WEBHOOK_URL}"
