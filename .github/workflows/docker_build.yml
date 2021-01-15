@@ -16,5 +16,5 @@ jobs:
       # https://github.com/VincentRouvreau/automated-quay.io-deployment/blob/master/README.md
       - name: Webhook on quay.io
         run: |
-          echo ${POUET}
+          echo ${{ secrets.POUET }}
           curl -s https://raw.githubusercontent.com/VincentRouvreau/automated-quay.io-deployment/master/deploy-on-quay | sh
