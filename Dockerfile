@@ -1,3 +1,7 @@
+# If you have to modify this file, it will trigger a build of quay.io/vincentrouvreau/quay_automated_build
+# docker image used by .github/workflows/test_sample.yml
+# Please consider making a separate PR for docker to be built, and your changes in the code
+
 # minimal docker containers for python applications
 # https://blog.realkinetic.com/building-minimal-docker-containers-for-python-applications-37d0272c52f3
 FROM python:3.7-alpine
