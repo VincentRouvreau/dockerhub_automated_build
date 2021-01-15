@@ -7,14 +7,15 @@ on:
       - 'requirements.txt'
       - '.github/workflows/docker_build.yml'
 
-# https://github.com/lkiesow/automated-quay.io-deployment/
 jobs:
   build:
     name: Webhook
     runs-on: ubuntu-latest
+    env:
+      QUAY_WEBHOOK_URL: ${{ secrets.QUAY_WEBHOOK_URL }}
+      # QUAY_DEFAULT_BRANCH: ${{ secrets.QUAY_DEFAULT_BRANCH }}
     steps:
-      # https://github.com/VincentRouvreau/automated-quay.io-deployment/blob/master/README.md
+      # cf. https://github.com/VincentRouvreau/automated-quay.io-deployment/blob/master/README.md
       - name: Webhook on quay.io
         run: |
-          echo ${{ secrets.POUET }}
           curl -s https://raw.githubusercontent.com/VincentRouvreau/automated-quay.io-deployment/master/deploy-on-quay | sh
