@@ -12,11 +12,8 @@ jobs:
   build:
     name: Webhook
     runs-on: ubuntu-latest
-    container: byrnedo/alpine-curl
     steps:
-      # https://docs.quay.io/guides/custom-trigger.html
+      # https://github.com/VincentRouvreau/automated-quay.io-deployment/blob/master/README.md
       - name: Webhook on quay.io
         run: |
-          payload="{ \"commit\": \"${GITHUB_SHA}\", \"ref\": \"refs/heads/${GITHUB_REF}\", \"default_branch\": \"master\" }"
-          echo $payload
-          curl -H 'Content-Type: application/json' --data "${payload}" "${QUAY_WEBHOOK_URL}"
+          curl -s https://raw.githubusercontent.com/VincentRouvreau/automated-quay.io-deployment/master/deploy-on-quay | sh
